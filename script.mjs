@@ -46,4 +46,18 @@ app.get('/tmp/quote', (req, res) => {
     res.send(quotes[randomIndex]);
 });
 
+//Legg til koden for "/tmp/sum/a/b":
+app.post('/tmp/sum/:a/:b', (req, res) => {
+    const a = parseFloat(req.params.a); // converts "a" to a number
+    const b = parseFloat(req.params.b); // converts "b" to a number
+
+    //check if both parameters are valid numbers
+    if (isNaN(a) || isNaN(b)) {
+        res.status(400).send("Both parameters must be numbers.");
+        return;
+    }
+    //calculate and return the sum
+    res.send(`The sum of ${a} and ${b} is ${a + b}`);
+});
+
 
