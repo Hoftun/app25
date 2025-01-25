@@ -1,5 +1,24 @@
 {
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.21.2"
-  }
+  },
+  "name": "demo25",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hoftun/Uke-3-Oppgave.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hoftun/Uke-3-Oppgave/issues"
+  },
+  "homepage": "https://github.com/Hoftun/Uke-3-Oppgave#readme",
+  "description": ""
 }
