@@ -52,3 +52,17 @@ app.patch('/temp/deck/shuffle/:deck_id', (req, res) => {
   res.json({ message: 'Deck shuffled' });
 });
 
+//-----------Add the Get Deck Endpoint--------------------------------------------------------------
+
+// Get a deck by ID
+app.get('/temp/deck/:deck_id', (req, res) => {
+  const { deck_id } = req.params;
+
+  // Check if the deck exists
+  if (!decks[deck_id]) {
+      return res.status(404).json({ error: 'Deck not found' });
+  }
+
+  res.json(decks[deck_id]); // Return the deck
+});
+
