@@ -66,3 +66,25 @@ app.get('/temp/deck/:deck_id', (req, res) => {
   res.json(decks[deck_id]); // Return the deck
 });
 
+//--------Add the Draw Card Endpoint-------------------------------------------------------------------
+
+// Draw a card from a deck
+app.get('/temp/deck/:deck_id/card', (req, res) => {
+  const { deck_id } = req.params;
+
+  // Check if the deck exists
+  if (!decks[deck_id]) {
+      return res.status(404).json({ error: 'Deck not found' });
+  }
+
+  const deck = decks[deck_id];
+
+  // Check if there are cards left
+  if (deck.length === 0) {
+      return res.status(400).json({ error: 'No more cards in the deck' });
+  }
+
+  const card = deck.pop(); // Remove and return the last card
+  res.json(card);
+});
+
