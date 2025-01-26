@@ -20,5 +20,8 @@
     "url": "https://github.com/Hoftun/Uke-3-Oppgave/issues"
   },
   "homepage": "https://github.com/Hoftun/Uke-3-Oppgave#readme",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "prettier": "^3.4.2"
+  }
 }
