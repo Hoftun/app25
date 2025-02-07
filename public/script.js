@@ -1,101 +1,57 @@
-//------------Create Deck-----------------------------------------------------------
-document.getElementById("createDeck").addEventListener("click", async () => {
+async function fetchAPI(endpoint, method = "GET", body = null) {
   try {
-    const res = await fetch("/temp/deck", { method: "POST" });
-    if (!res.ok) {
-      const error = await res.json();
-      throw new Error(
-        error.error || "Unknown error occurred while creating the deck",
-      );
-    }
+    const options = { method, headers: { "Content-Type": "application/json" } };
+    if (body) options.body = JSON.stringify(body);
 
-    const data = await res.json();
-    document.getElementById("output").textContent = `Deck ID: ${data.deck_id}`;
+    const res = await fetch(endpoint, options);
+    if (!res.ok) throw new Error((await res.json()).error || "Unknown error");
+
+    return await res.json();
   } catch (err) {
     document.getElementById("output").textContent = `Error: ${err.message}`;
   }
+}
+
+//------------Create Deck-----------------------------------------------------------
+document.getElementById("createDeck").addEventListener("click", async () => {
+  const data = await fetchAPI("/api/decks", "POST");
+  document.getElementById("output").textContent = `Deck ID: ${data.deck_id}`;
 });
+
 //------------Shuffle Deck-----------------------------------------------------------
 document.getElementById("shuffleDeck").addEventListener("click", async () => {
   const deckId = document.getElementById("deckId").value;
-
-  // Check if deckId is been inputted
   if (!deckId) {
     document.getElementById("output").textContent =
       "Error: Please provide a valid Deck ID.";
     return;
   }
-
-  try {
-    const res = await fetch(`/temp/deck/shuffle/${deckId}`, {
-      method: "PATCH",
-    });
-    if (!res.ok) {
-      const error = await res.json();
-      throw new Error(
-        error.error || "Unknown error occurred while shuffling the deck",
-      );
-    }
-
-    const data = await res.json();
-    document.getElementById("output").textContent = JSON.stringify(data);
-  } catch (err) {
-    document.getElementById("output").textContent = `Error: ${err.message}`;
-  }
+  
+  await fetchAPI(`/api/decks/shuffle/${deckId}`, "PATCH");
 });
+
 //-------------GET DECK------------------------------------------------------------
 document.getElementById("getDeck").addEventListener("click", async () => {
   const deckId = document.getElementById("deckId").value;
-
-  // Check if deckId is been inputted
   if (!deckId) {
     document.getElementById("output").textContent =
       "Error: Please provide a valid Deck ID.";
     return;
   }
 
-  try {
-    const res = await fetch(`/temp/deck/${deckId}`);
-    if (!res.ok) {
-      const error = await res.json();
-      throw new Error(
-        error.error || "Unknown error occurred while getting the deck",
-      );
-    }
-
-    const data = await res.json();
-    document.getElementById("output").textContent = JSON.stringify(
-      data,
-      null,
-      2,
-    );
-  } catch (err) {
-    document.getElementById("output").textContent = `Error: ${err.message}`;
-  }
+  const data = await fetchAPI(`/api/decks/${deckId}`);
+  document.getElementById("output").textContent = JSON.stringify(data, null, 2);
 });
+
 //---------------Draw Card--------------------------------------------------------
 document.getElementById("drawCard").addEventListener("click", async () => {
   const deckId = document.getElementById("deckId").value;
-
-  // Check if deckId is been inputted
   if (!deckId) {
     document.getElementById("output").textContent =
       "Error: Please provide a valid Deck ID.";
     return;
   }
 
-  try {
-    const res = await fetch(`/temp/deck/${deckId}/card`);
-    if (!res.ok) {
-      const error = await res.json();
-      throw new Error(
-        error.error || "Unknown error occurred while Drawing a card",
-      );
-    }
-
-    const data = await res.json();
-    document.getElementById("output").textContent = JSON.stringify(data);
-  } catch (err) {
-    document.getElementById("output").textContent = `Error: ${err.message}`;
-  }
+  const data = await fetchAPI(`/api/decks/${deckId}/card`);
+  document.getElementById("output").textContent = JSON.stringify(data);
 });
