@@ -46,12 +46,21 @@ document.getElementById("getDeck").addEventListener("click", async () => {
 //---------------Draw Card--------------------------------------------------------
 document.getElementById("drawCard").addEventListener("click", async () => {
   const deckId = document.getElementById("deckId").value;
+  const output = document.getElementById("output");
+
   if (!deckId) {
-    document.getElementById("output").textContent =
-      "Error: Please provide a valid Deck ID.";
+    output.textContent = "Error: Please provide a valid Deck ID.";
+    output.style.color = "red"; // Make the error message red
     return;
   }
 
   const data = await fetchAPI(`/api/decks/${deckId}/card`);
-  document.getElementById("output").textContent = JSON.stringify(data);
+  
+  if (data && data.error) {
+    output.textContent = data.error;
+    output.classList.add("error"); // Apply red text
+  } else {
+    output.textContent = `You drew: ${data.value} of ${data.suit}`;
+    output.classList.remove("error"); // Remove red text if successful
+  }
 });
