@@ -4,21 +4,23 @@ import deckRoutes from "./routes/deckRoutes.mjs";
 import miscRoutes from "./routes/miscRoutes.mjs";
 import errorHandler from "./middlewares/errorHandler.mjs";
 import { featureFlagMiddleware, featureFlagRoutes } from "./middlewares/featureFlags.mjs";
+import log from "./modules/log.mjs";
 
-const app = express();
+const server = express();  
 const port = process.env.PORT || 8000;
 
 // Middleware
-app.use(express.json());
-app.use(express.static("public"));
+server.use(express.json());
+server.use(express.static("public"));
+server.use(log);  
 
 // Routes
-app.use("/api/decks", deckRoutes);
-app.use("/api/misc", miscRoutes);
-featureFlagRoutes(app); // Legg til feature flag-routes
+server.use("/api/decks", deckRoutes);
+server.use("/api/misc", miscRoutes);
+featureFlagRoutes(server); // Updated to match new naming
 
-// Eksempel på bruk i en route med feature flag middleware
-app.get("/new-feature", featureFlagMiddleware("newFeature"), (req, res) => {
+// Example route using feature flag middleware
+server.get("/new-feature", featureFlagMiddleware("newFeature"), (req, res) => {
     if (req.featureEnabled) {
         res.send("Den nye funksjonen er aktiv!");
     } else {
@@ -27,8 +29,8 @@ app.get("/new-feature", featureFlagMiddleware("newFeature"), (req, res) => {
 });
 
 // Global error handling middleware
-app.use(errorHandler);
+server.use(errorHandler);
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
