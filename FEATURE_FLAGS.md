@@ -2,32 +2,8 @@
 
 Dette middlewaret lar deg aktivere og deaktivere funksjoner i en Express-applikasjon uten å endre koden eller restarte serveren.
 
-______________________________________________________________________________________________________________________________________
-# Oppsett
 
-Sørg for at Express er installert:
-------------------------------------
-npm install express
-------------------------------------
-
-Sjekk at prosjektet har denne strukturen:
---------------------------------------------
-/app25
-│── /src
-│   │── /middlewares
-│   │   ├── featureFlags.mjs
-│   │── /config
-│   │   ├── featureFlags.json
-│   ├── server.mjs
-│── package.json
--------------------------------------------
-
-Hvis featureFlags.json mangler, opprett den:
-------------------------------------------
-echo '{}' > src/config/featureFlags.json
-------------------------------------------
-
-_____________________________________________________________________________________________________________________________________
+____________________________________________________________________________________________________________________________________
 # Bruk
 
 Se alle feature flags
