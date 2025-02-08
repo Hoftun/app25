@@ -9,3 +9,7 @@ Instructions for how to install and set up the project.
 
 git clone https://github.com/Hoftun/app2025
 cd app2025
+
+## Feature Flag Middleware
+Prosjektet inkluderer et middleware for dynamisk feature flagging.  
+For detaljert bruk og testing, se [FEATURE_FLAGS.md](FEATURE_FLAGS.md).

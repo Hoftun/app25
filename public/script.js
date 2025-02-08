@@ -4,63 +4,71 @@ async function fetchAPI(endpoint, method = "GET", body = null) {
     if (body) options.body = JSON.stringify(body);
 
     const res = await fetch(endpoint, options);
-    if (!res.ok) throw new Error((await res.json()).error || "Unknown error");
+    const data = await res.json();
+    
+    if (!res.ok) throw new Error(data.error || "Unknown error");
 
-    return await res.json();
+    return data;
   } catch (err) {
-    document.getElementById("output").textContent = `Error: ${err.message}`;
+    displayMessage(`Error: ${err.message}`, "red");
   }
 }
 
-//------------Create Deck-----------------------------------------------------------
+// Display messages with color
+function displayMessage(message, color = "black") {
+  const output = document.getElementById("output");
+  output.textContent = message;
+  output.style.color = color;
+}
+
+// Create Deck
 document.getElementById("createDeck").addEventListener("click", async () => {
   const data = await fetchAPI("/api/decks", "POST");
-  document.getElementById("output").textContent = `Deck ID: ${data.deck_id}`;
+  if (data) displayMessage(`Deck ID: ${data.deck_id}`, "black");
 });
 
-//------------Shuffle Deck-----------------------------------------------------------
+// Shuffle Deck
 document.getElementById("shuffleDeck").addEventListener("click", async () => {
   const deckId = document.getElementById("deckId").value;
-  if (!deckId) {
-    document.getElementById("output").textContent =
-      "Error: Please provide a valid Deck ID.";
-    return;
+  if (!deckId) return displayMessage("Enter a valid Deck ID!", "red");
+
+  const data = await fetchAPI(`/api/decks/shuffle/${deckId}`, "PATCH");
+  if (data) {
+    if (data.error) {
+      displayMessage(data.error, "red"); // Show error in red
+    } else {
+      displayMessage("Deck shuffled successfully!", "black"); // Normal message in black
+    }
   }
-  
-  await fetchAPI(`/api/decks/shuffle/${deckId}`, "PATCH");
 });
 
-//-------------GET DECK------------------------------------------------------------
+
+// Get Deck
 document.getElementById("getDeck").addEventListener("click", async () => {
   const deckId = document.getElementById("deckId").value;
-  if (!deckId) {
-    document.getElementById("output").textContent =
-      "Error: Please provide a valid Deck ID.";
-    return;
-  }
+  if (!deckId) return displayMessage("Enter a valid Deck ID!", "red");
 
   const data = await fetchAPI(`/api/decks/${deckId}`);
-  document.getElementById("output").textContent = JSON.stringify(data, null, 2);
+  if (data) {
+    if (data.error) {
+      displayMessage(data.error, "red");
+    } else {
+      displayMessage(JSON.stringify(data, null, 2), "black");
+    }
+  }
 });
 
-//---------------Draw Card--------------------------------------------------------
+// Draw Card
 document.getElementById("drawCard").addEventListener("click", async () => {
   const deckId = document.getElementById("deckId").value;
-  const output = document.getElementById("output");
-
-  if (!deckId) {
-    output.textContent = "Error: Please provide a valid Deck ID.";
-    output.style.color = "red"; // Make the error message red
-    return;
-  }
+  if (!deckId) return displayMessage("Enter a valid Deck ID!", "red");
 
   const data = await fetchAPI(`/api/decks/${deckId}/card`);
-  
-  if (data && data.error) {
-    output.textContent = data.error;
-    output.classList.add("error"); // Apply red text
-  } else {
-    output.textContent = `You drew: ${data.value} of ${data.suit}`;
-    output.classList.remove("error"); // Remove red text if successful
+  if (data) {
+    if (data.error) {
+      displayMessage(data.error, "red");
+    } else {
+      displayMessage(JSON.stringify(data), "black");
+    }
   }
 });
