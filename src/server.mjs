@@ -5,17 +5,19 @@ import miscRoutes from "./routes/miscRoutes.mjs";
 import errorHandler from "./middlewares/errorHandler.mjs";
 import { featureFlagMiddleware, featureFlagRoutes } from "./middlewares/featureFlags.mjs";
 import log from "./modules/log.mjs";
+import { LOGG_LEVELS } from "./modules/log.mjs";
 
 const ENABLE_LOGGING = false; // Set to true to enable logging
 
 const server = express();  
 const port = process.env.PORT || 8000;
 
-const logger = log(ENABLE_LOGGING); 
+const logger = log(LOGG_LEVELS.VERBOSE); 
+const loggerAlways = log(LOGG_LEVELS.ALWAYS);
 
 // Middleware
 server.use(express.json());
-server.use(logger);  
+server.use(logger, loggerAlways);  
 server.use(express.static("public"));
 
 

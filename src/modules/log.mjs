@@ -1,6 +1,6 @@
 //Enums for log levels
 let level_id = 0;
-const LOGG_LEVELS = {
+export const LOGG_LEVELS = {
   VERBOSE: ++level_id,
   IMPORTANT: ++level_id,
   ALWAYS: ++level_id,
