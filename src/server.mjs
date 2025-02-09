@@ -11,8 +11,9 @@ const port = process.env.PORT || 8000;
 
 // Middleware
 server.use(express.json());
-server.use(express.static("public"));
 server.use(log);  
+server.use(express.static("public"));
+
 
 // Routes
 server.use("/api/decks", deckRoutes);
@@ -34,3 +35,4 @@ server.use(errorHandler);
 server.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
+
