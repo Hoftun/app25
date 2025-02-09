@@ -1,6 +1,6 @@
-const decks = {}; // In-memory storage for decks
+const decks = {}; 
 
-//---------------------------------Create Deck-----------------------------------------------------------
+
 export const createDeck = (req, res) => {
   const deckId = Math.random().toString(36).substring(2, 10);
   const suits = ["hearts", "diamonds", "clubs", "spades"];
@@ -9,7 +9,7 @@ export const createDeck = (req, res) => {
   decks[deckId] = suits.flatMap(suit => values.map(value => ({ suit, value })));
   res.status(201).json({ deck_id: deckId });
 };
-//---------------------------------Shuffle Deck-----------------------------------------------------------
+
 export const shuffleDeck = (req, res) => {
   const { deck_id } = req.params;
   if (!decks[deck_id]) {
@@ -29,7 +29,7 @@ export const shuffleDeck = (req, res) => {
   res.json({ message: "Deck shuffled successfully!" });
 };
 
-//---------------------------------GET DECK-----------------------------------------------------------
+
 export const getDeck = (req, res) => {
   const { deck_id } = req.params;
   if (!decks[deck_id]) {
@@ -43,7 +43,7 @@ export const getDeck = (req, res) => {
   res.json(decks[deck_id]); // Return the deck if it's not empty
 };
 
-//---------------------------------Draw Card-----------------------------------------------------------
+
 export const drawCard = (req, res) => {
   const { deck_id } = req.params;
   if (!decks[deck_id]) return res.status(404).json({ error: `Deck ${deck_id} not found` });

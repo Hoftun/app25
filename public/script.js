@@ -14,20 +14,20 @@ async function fetchAPI(endpoint, method = "GET", body = null) {
   }
 }
 
-// Display messages with color
+
 function displayMessage(message, color = "black") {
   const output = document.getElementById("output");
   output.textContent = message;
   output.style.color = color;
 }
 
-// Create Deck
+
 document.getElementById("createDeck").addEventListener("click", async () => {
   const data = await fetchAPI("/api/decks", "POST");
   if (data) displayMessage(`Deck ID: ${data.deck_id}`, "black");
 });
 
-// Shuffle Deck
+
 document.getElementById("shuffleDeck").addEventListener("click", async () => {
   const deckId = document.getElementById("deckId").value;
   if (!deckId) return displayMessage("Enter a valid Deck ID!", "red");
@@ -43,7 +43,7 @@ document.getElementById("shuffleDeck").addEventListener("click", async () => {
 });
 
 
-// Get Deck
+
 document.getElementById("getDeck").addEventListener("click", async () => {
   const deckId = document.getElementById("deckId").value;
   if (!deckId) return displayMessage("Enter a valid Deck ID!", "red");
@@ -58,7 +58,7 @@ document.getElementById("getDeck").addEventListener("click", async () => {
   }
 });
 
-// Draw Card
+
 document.getElementById("drawCard").addEventListener("click", async () => {
   const deckId = document.getElementById("deckId").value;
   if (!deckId) return displayMessage("Enter a valid Deck ID!", "red");

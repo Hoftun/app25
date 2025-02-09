@@ -7,7 +7,7 @@ import { featureFlagMiddleware, featureFlagRoutes } from "./middlewares/featureF
 import log from "./modules/log.mjs";
 import { LOGG_LEVELS } from "./modules/log.mjs";
 
-const ENABLE_LOGGING = false; // Set to true to enable logging
+const ENABLE_LOGGING = false; 
 
 const server = express();  
 const port = process.env.PORT || 8000;
@@ -15,16 +15,16 @@ const port = process.env.PORT || 8000;
 const logger = log(LOGG_LEVELS.VERBOSE); 
 const loggerAlways = log(LOGG_LEVELS.ALWAYS);
 
-// Middleware
+
 server.use(express.json());
 server.use(logger, loggerAlways);  
 server.use(express.static("public"));
 
 
-// Routes
+
 server.use("/api/decks", deckRoutes);
 server.use("/api/misc", miscRoutes);
-featureFlagRoutes(server); // Updated to match new naming
+featureFlagRoutes(server); 
 
 // Example route using feature flag middleware
 server.get("/new-feature", featureFlagMiddleware("newFeature"), (req, res) => {
@@ -35,7 +35,7 @@ server.get("/new-feature", featureFlagMiddleware("newFeature"), (req, res) => {
     }
 });
 
-// Global error handling middleware
+
 server.use(errorHandler);
 
 server.listen(port, () => {

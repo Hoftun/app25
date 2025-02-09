@@ -1,23 +1,23 @@
-# Feature Flag Middleware - Instruksjon
+# Feature Flag Middleware - Instructions
 
-Dette middlewaret lar deg aktivere og deaktivere funksjoner i en Express-applikasjon uten å endre koden eller restarte serveren.
+This middleware allows you to enable and disable features in an Express application without modifying the code or restarting the server.
 
 
 ____________________________________________________________________________________________________________________________________
-# Bruk
+# Usage
 
-Se alle feature flags
+View all feature flags
 -----------------------------------
 curl http://localhost:8000/features
 -----------------------------------
 
-Hvis ingen flagg er satt, får du:
+If no flags are set, you will receive:
 -------
 {}
 --------
 
 _____________________________________________________________________________________________________________________________________
-# Aktivere en feature
+# Enable a feature
 
 -------------------------------------------------------
 curl -X POST http://localhost:8000/features \
@@ -25,13 +25,13 @@ curl -X POST http://localhost:8000/features \
      -d '{"feature": "newFeature", "enabled": true}'
 -------------------------------------------------------
 
-Forventet respons:
+Expected response:
 -------------------------------------------------------
-{ "message": "Feature 'newFeature' er nå aktivert." }
+{ "message": "Feature 'newFeature' is now enabled." }
 -------------------------------------------------------
 
 ___________________________________________________________________________________________________________________________________
-# Deaktivere en feature
+# Disable a feature
 
 ----------------------------------------------------------
 curl -X POST http://localhost:8000/features \
@@ -39,38 +39,38 @@ curl -X POST http://localhost:8000/features \
      -d '{"feature": "newFeature", "enabled": false}'
 --------------------------------------------------------
 
-Forventet respons:
+Expected response:
 --------------------------------------------------------
-{ "message": "Feature 'newFeature' er nå deaktivert." }
+{ "message": "Feature 'newFeature' is now disabled." }
 -------------------------------------------------------
 
 ___________________________________________________________________________________________________________________________________
-# Teste feature flag-middleware
+# Test feature flag middleware
 
-Legg til denne route i server.mjs:
+Add this route to server.mjs:
 -------------------------------------------------------------------------------
 app.get("/new-feature", featureFlagMiddleware("newFeature"), (req, res) => {
     if (req.featureEnabled) {
-        res.send("Den nye funksjonen er aktiv!");
+        res.send("The new feature is active!");
     } else {
-        res.status(403).send("Denne funksjonen er ikke tilgjengelig ennå.");
+        res.status(403).send("This feature is not available yet.");
     }
 });
 -------------------------------------------------------------------------------
 
-Test med:
+Test with:
 ----------------------------------------
 curl http://localhost:8000/new-feature
 ---------------------------------------
 
-Hvis aktivert (true):
+If enabled (true):
 ----------------------------
-Den nye funksjonen er aktiv!
+The new feature is active!
 ----------------------------
 
-Hvis deaktivert (false):
+If disabled (false):
 -------------------------------------------
-Denne funksjonen er ikke tilgjengelig ennå.
+This feature is not available yet.
 -------------------------------------------
 
 
