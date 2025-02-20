@@ -23,11 +23,22 @@ const log = function (loggLevel)  {
   return  logInstance;
 }
 
+export const eventLogger = function (eventDescription, loggLevel = LOGG_LEVELS.VERBOSE) {
+
+  if(loggLevel >= correntGlobalLogLevel) {
+
+    console.log(`${Date.now()}|${eventDescription}`);
+    savelog(`${Date.now()}|${eventDescription}`);
+  }
+  
+}
+
 const colorize =  (text) => {
   const colors = {
     red: '\x1b[1;31m',
     green: '\x1b[1;32m',
     yellow: '\x1b[1;33m',
+    reset: '\x1b[0m',
   }
   const methods = {
     GET: colors.green,
@@ -36,7 +47,7 @@ const colorize =  (text) => {
     PATCH: colors.yellow,
   }
 
-return`"${methods[text]}}${text}..`
+return`"${methods[text]}}${text}${colors.reset}`
 }
 
 

@@ -5,7 +5,7 @@ import miscRoutes from "./routes/miscRoutes.mjs";
 import errorHandler from "./middlewares/errorHandler.mjs";
 import { featureFlagMiddleware, featureFlagRoutes } from "./middlewares/featureFlags.mjs";
 import log from "./modules/log.mjs";
-import { LOGG_LEVELS } from "./modules/log.mjs";
+import { LOGG_LEVELS, eventLogger} from "./modules/log.mjs";
 
 const ENABLE_LOGGING = false; 
 
