@@ -59,12 +59,12 @@ const logAlways = async (req, res, next) =>{
 }
 
 const printLog = async (req, res) => {
-  let logStatement = `${Date.now()}|${colorize(req.method)}|${req.url}`
-  console.log(logStatement);
-  await savelog(logStatement);
+  console.log(`${Date.now()}|${colorize(req.method)}|${req.url}`);
+  await savelog(`${Date.now()}|${req.method}|${req.url}`);
 }
 
 const savelog = async (text) => {
+  text += "\n";
   await fs.appendFile("src/logs/log.csv", text);
 }
 
