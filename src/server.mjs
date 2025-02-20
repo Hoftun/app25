@@ -13,14 +13,12 @@ const server = express();
 const port = process.env.PORT || 8000;
 
 const logger = log(LOGG_LEVELS.VERBOSE); 
-const loggerAlways = log(LOGG_LEVELS.ALWAYS);
+
 
 
 server.use(express.json());
-server.use(logger, loggerAlways);  
+server.use(logger);  
 server.use(express.static("public"));
-
-
 
 server.use("/api/decks", deckRoutes);
 server.use("/api/misc", miscRoutes);

@@ -10,8 +10,14 @@ let currentGlobalLogLevel = LOGG_LEVELS.VERBOSE;
 
 const log = function (loggLevel)  {
 
+  currentGlobalLogLevel = loggLevel;
 
-
+  return  function(req, res, next) {
+    logVerbose(req, res),
+    logImportant(req, res),
+    logAlways(req, res),
+    next();
+  }
 
   return 
   
@@ -21,20 +27,17 @@ const logVerbose = (req, res, next) =>{
   if (LOGG_LEVELS.VERBOSE == currentGlobalLogLevel) {
     printLog(req, res);
   }
-  next();
 }
 const logImportant = (req, res, next) =>{
   if (LOGG_LEVELS.IMPORTANT == currentGlobalLogLevel) {
       printLog(req, res);
   }
-  next();
 }
 
 const logAlways = (req, res, next) =>{
   if (LOGG_LEVELS.ALWAYS == currentGlobalLogLevel) {
     printLog(req, res);
   }
-  next();
 }
 
 const printLog = (req, res) => {
