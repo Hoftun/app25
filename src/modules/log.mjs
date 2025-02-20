@@ -8,19 +8,19 @@ export const LOGG_LEVELS = {
 
 let currentGlobalLogLevel = LOGG_LEVELS.VERBOSE;
 
-let logInstance = baseLoggFunction;
+let logInstance = baseLoggFunction = (req, res, next) => {
+  logVerbose(req, res),
+  logImportant(req, res),
+  logAlways(req, res),
+  next();
+};
 
 const log = function (loggLevel)  {
   currentGlobalLogLevel = loggLevel;
   return  logInstance;
 }
 
-const baseLoggFunction = (req, res, next) => {
-  logVerbose(req, res),
-  logImportant(req, res),
-  logAlways(req, res),
-  next();
-}
+
 
 const logVerbose = (req, res, next) =>{
   if (LOGG_LEVELS.VERBOSE == currentGlobalLogLevel) {
