@@ -1,3 +1,6 @@
+import {text} from 'express';
+import fs from 'node:fs/promises';
+
 //Enums for log levels
 let level_id = 0;
 export const LOGG_LEVELS = {
@@ -8,10 +11,10 @@ export const LOGG_LEVELS = {
 
 let currentGlobalLogLevel = LOGG_LEVELS.VERBOSE;
 
-let logInstance = (req, res, next) => {
-  logVerbose(req, res),
-  logImportant(req, res),
-  logAlways(req, res),
+let logInstance = async (req, res, next) => {
+  await logVerbose(req, res),
+  await logImportant(req, res),
+  await logAlways(req, res),
   next();
 };
 
@@ -38,28 +41,32 @@ return`"${methods[text]}}${text}..`
 
 
 
-const logVerbose = (req, res, next) =>{
+const logVerbose = async (req, res, next) =>{
   if (LOGG_LEVELS.VERBOSE == currentGlobalLogLevel) {
-    printLog(req, res);
+    await printLog(req, res);
   }
 }
-const logImportant = (req, res, next) =>{
+const logImportant = async (req, res, next) =>{
   if (LOGG_LEVELS.IMPORTANT == currentGlobalLogLevel) {
-      printLog(req, res);
+      await printLog(req, res);
   }
 }
 
-const logAlways = (req, res, next) =>{
+const logAlways = async (req, res, next) =>{
   if (LOGG_LEVELS.ALWAYS == currentGlobalLogLevel) {
-    printLog(req, res);
+   await printLog(req, res);
   }
 }
 
-const printLog = (req, res) => {
-  console.log(`${Date.now()}|${colorize(req.method)}|${req.url}`);
+const printLog = async (req, res) => {
+  let logStatement = `${Date.now()}|${colorize(req.method)}|${req.url}`
+  console.log(logStatement);
+  await savelog(logStatement);
 }
 
-
+const savelog = async (text) => {
+  await fs.appendFile("src/logs/log.csv", text);
+}
 
 export default log;
 
