@@ -20,6 +20,22 @@ const log = function (loggLevel)  {
   return  logInstance;
 }
 
+const colorize =  (text) => {
+  const colors = {
+    red: '\x1b[1;31m',
+    green: '\x1b[1;32m',
+    yellow: '\x1b[1;33m',
+  }
+  const methods = {
+    GET: colors.green,
+    POST: colors.red,
+    PUT: colors.red,
+    PATCH: colors.yellow,
+  }
+
+return`"${methods[text]}}${text}..`
+}
+
 
 
 const logVerbose = (req, res, next) =>{
@@ -40,7 +56,7 @@ const logAlways = (req, res, next) =>{
 }
 
 const printLog = (req, res) => {
-  console.log(`${Date.now()}|${req.method}|${req.url}`);
+  console.log(`${Date.now()}|${colorize(req.method)}|${req.url}`);
 }
 
 
