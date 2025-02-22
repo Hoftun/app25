@@ -6,6 +6,7 @@ import errorHandler from "./middlewares/errorHandler.mjs";
 import { featureFlagMiddleware, featureFlagRoutes } from "./middlewares/featureFlags.mjs";
 import log from "./modules/log.mjs";
 import { LOGG_LEVELS, eventLogger} from "./modules/log.mjs";
+import pomodoroRouters from "./routes/pomodoroRoutes.mjs";
 
 const ENABLE_LOGGING = false; 
 
@@ -15,13 +16,16 @@ const port = process.env.PORT || 8000;
 const logger = log(LOGG_LEVELS.VERBOSE); 
 
 
-
 server.use(express.json());
 server.use(logger);  
 server.use(express.static("public"));
 
 server.use("/api/decks", deckRoutes);
 server.use("/api/misc", miscRoutes);
+
+server.use("/api/pomodoro", pomodoroRouters);
+
+
 featureFlagRoutes(server); 
 
 // Example route using feature flag middleware
