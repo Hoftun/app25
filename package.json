@@ -8,7 +8,8 @@
   "version": "1.0.0",
   "main": "server.mjs",
   "scripts": {
-    "start": "node server.mjs",
+    "start": "node src/server.mjs",
+    "dev": "nodemon src/server.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,7 +25,7 @@
   "homepage": "https://github.com/Hoftun/Uke-3-Oppgave#readme",
   "description": "",
   "devDependencies": {
+    "nodemon": "^3.1.9",
     "prettier": "^3.4.2"
   }
 }
-

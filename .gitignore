@@ -1,8 +1,7 @@
 HEAD
+#Ignore Node modules
 node_modules/
 
-node_modules/
+#ignore Log files
+src/logs/log.csv
 
- eff9017 (Initial commit with updated folder structure)
-
-log.csv
