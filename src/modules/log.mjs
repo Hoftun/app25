@@ -74,10 +74,31 @@ const printLog = async (req, res) => {
   await savelog(`${Date.now()}|${req.method}|${req.url}`);
 }
 
-const savelog = async (text) => {
-  text += "\n";
-  await fs.appendFile("src/logs/log.csv", text);
+const logFilePath = "src/logs/log.csv";
+
+const ensureLogFileExists = async () => {
+  try {
+    // Check if the directory exists
+    await fs.mkdir("src/logs", { recursive: true });
+
+    // Check if the file exists
+    try {
+      await fs.access(logFilePath);
+    } catch (err) {
+      // If the file doesn't exist, create it
+      await fs.writeFile(logFilePath, "");  
+    }
+  } catch (err) {
+    console.error("Error ensuring log file:", err);
+  }
 }
+
+const savelog = async (text) => {
+  await ensureLogFileExists();  // Check and create if necessary
+  text += "\n";
+  await fs.appendFile(logFilePath, text);
+}
+
 
 export default log;
 
