@@ -1,0 +1,279 @@
+{
+	"info": {
+		"_postman_id": "0a441ae2-fa34-408b-86d7-5fbe9274bea0",
+		"name": "Pomodoro Timer API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42549222"
+	},
+	"item": [
+		{
+			"name": "Localhost Requests",
+			"item": [
+				{
+					"name": "http://localhost:8000/api/pomodoro",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"type\": \"work\",\r\n  \"duration\": 1500\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/pomodoro",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"pomodoro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8000/api/pomodoro",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/pomodoro",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"pomodoro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8000/api/pomodoro/1740262791922",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/pomodoro/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"pomodoro",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8000/api/pomodoro/1740237428122",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/pomodoro/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"pomodoro",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8000/api/pomodoro/1740262791922",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/pomodoro/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"pomodoro",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Render Requests",
+			"item": [
+				{
+					"name": "https://app25.onrender.com/api/pomodoro",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"type\": \"work\",\r\n  \"duration\": 1500\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://app25.onrender.com/api/pomodoro",
+							"protocol": "https",
+							"host": [
+								"app25",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"pomodoro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://app25.onrender.com/api/pomodoro",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://app25.onrender.com/api/pomodoro",
+							"protocol": "https",
+							"host": [
+								"app25",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"pomodoro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://app25.onrender.com/api/pomodoro/1740264037617",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://app25.onrender.com/api/pomodoro/",
+							"protocol": "https",
+							"host": [
+								"app25",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"pomodoro",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://app25.onrender.com/api/pomodoro/1740264037617",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://app25.onrender.com/api/pomodoro/",
+							"protocol": "https",
+							"host": [
+								"app25",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"pomodoro",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://app25.onrender.com/api/pomodoro/1740263884759",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://app25.onrender.com/api/pomodoro/",
+							"protocol": "https",
+							"host": [
+								"app25",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"pomodoro",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
