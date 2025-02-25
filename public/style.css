@@ -43,3 +43,12 @@ body {
   background: #ff4f41;
 }
 
+#cat {
+  width: 120px;
+  position: absolute;
+  top: 10%;
+  transform: translateX(-50%);
+  left: 50%;
+  z-index: 10;
+}
+
