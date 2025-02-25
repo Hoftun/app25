@@ -5,8 +5,7 @@ let isPaused = false;
 
 const minutesDisplay = document.getElementById('minutes');
 const secondsDisplay = document.getElementById('seconds');
-const startButton = document.getElementById('start');
-const pauseButton = document.getElementById('pause');
+const startPauseButton = document.getElementById('startPause');
 const resetButton = document.getElementById('reset');
 
 const updateDisplay = () => {
@@ -15,7 +14,6 @@ const updateDisplay = () => {
 }
 
 const startTimer = () => {
-    if (timerInterval) return;
     isPaused = false;
     timerInterval = setInterval(() => {
         if (!isPaused) {
@@ -36,8 +34,14 @@ const startTimer = () => {
     }, 1000);
 }
 
-const pauseTimer = () => {
-    isPaused = true;
+const toggleStartPause = () => {
+    if (timerInterval) {
+        isPaused = !isPaused;
+        startPauseButton.textContent = isPaused ? 'Start' : 'Pause';
+    } else {
+        startTimer();
+        startPauseButton.textContent = 'Pause';
+    }
 }
 
 const resetTimer = () => {
@@ -46,12 +50,13 @@ const resetTimer = () => {
     minutes = 25;
     seconds = 0;
     isPaused = false;
+    startPauseButton.textContent = 'Start';
     updateDisplay();
 }
 
-startButton.addEventListener('click', startTimer);
-pauseButton.addEventListener('click', pauseTimer);
+startPauseButton.addEventListener('click', toggleStartPause);
 resetButton.addEventListener('click', resetTimer);
 
 updateDisplay();
+
 
