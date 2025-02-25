@@ -44,9 +44,9 @@ body {
 }
 
 #cat {
-  width: 120px;
+  width: 250px;
   position: absolute;
-  top: 10%;
+  top: 13%;
   transform: translateX(-50%);
   left: 50%;
   z-index: 10;
