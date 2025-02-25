@@ -1,74 +1,57 @@
-async function fetchAPI(endpoint, method = "GET", body = null) {
-  try {
-    const options = { method, headers: { "Content-Type": "application/json" } };
-    if (body) options.body = JSON.stringify(body);
+let minutes = 25;
+let seconds = 0;
+let timerInterval;
+let isPaused = false;
 
-    const res = await fetch(endpoint, options);
-    const data = await res.json();
-    
-    if (!res.ok) throw new Error(data.error || "Unknown error");
+const minutesDisplay = document.getElementById('minutes');
+const secondsDisplay = document.getElementById('seconds');
+const startButton = document.getElementById('start');
+const pauseButton = document.getElementById('pause');
+const resetButton = document.getElementById('reset');
 
-    return data;
-  } catch (err) {
-    displayMessage(`Error: ${err.message}`, "red");
-  }
+const updateDisplay = () => {
+    minutesDisplay.textContent = String(minutes).padStart(2, '0');
+    secondsDisplay.textContent = String(seconds).padStart(2, '0');
 }
 
-
-function displayMessage(message, color = "black") {
-  const output = document.getElementById("output");
-  output.textContent = message;
-  output.style.color = color;
+const startTimer = () => {
+    if (timerInterval) return;
+    isPaused = false;
+    timerInterval = setInterval(() => {
+        if (!isPaused) {
+            if (seconds === 0) {
+                if (minutes === 0) {
+                    clearInterval(timerInterval);
+                    alert('Tid er ute! Ta en pause!');
+                    resetTimer();
+                    return;
+                }
+                minutes--;
+                seconds = 59;
+            } else {
+                seconds--;
+            }
+            updateDisplay();
+        }
+    }, 1000);
 }
 
+const pauseTimer = () => {
+    isPaused = true;
+}
 
-document.getElementById("createDeck").addEventListener("click", async () => {
-  const data = await fetchAPI("/api/decks", "POST");
-  if (data) displayMessage(`Deck ID: ${data.deck_id}`, "black");
-});
+const resetTimer = () => {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    minutes = 25;
+    seconds = 0;
+    isPaused = false;
+    updateDisplay();
+}
 
+startButton.addEventListener('click', startTimer);
+pauseButton.addEventListener('click', pauseTimer);
+resetButton.addEventListener('click', resetTimer);
 
-document.getElementById("shuffleDeck").addEventListener("click", async () => {
-  const deckId = document.getElementById("deckId").value;
-  if (!deckId) return displayMessage("Enter a valid Deck ID!", "red");
+updateDisplay();
 
-  const data = await fetchAPI(`/api/decks/shuffle/${deckId}`, "PATCH");
-  if (data) {
-    if (data.error) {
-      displayMessage(data.error, "red"); // Show error in red
-    } else {
-      displayMessage("Deck shuffled successfully!", "black"); // Normal message in black
-    }
-  }
-});
-
-
-
-document.getElementById("getDeck").addEventListener("click", async () => {
-  const deckId = document.getElementById("deckId").value;
-  if (!deckId) return displayMessage("Enter a valid Deck ID!", "red");
-
-  const data = await fetchAPI(`/api/decks/${deckId}`);
-  if (data) {
-    if (data.error) {
-      displayMessage(data.error, "red");
-    } else {
-      displayMessage(JSON.stringify(data, null, 2), "black");
-    }
-  }
-});
-
-
-document.getElementById("drawCard").addEventListener("click", async () => {
-  const deckId = document.getElementById("deckId").value;
-  if (!deckId) return displayMessage("Enter a valid Deck ID!", "red");
-
-  const data = await fetchAPI(`/api/decks/${deckId}/card`);
-  if (data) {
-    if (data.error) {
-      displayMessage(data.error, "red");
-    } else {
-      displayMessage(JSON.stringify(data), "black");
-    }
-  }
-});
