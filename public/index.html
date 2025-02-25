@@ -1,21 +1,24 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Card Deck Client</title>
-    <link rel="stylesheet" href="/public/styles.css">
-  </head>
-  <body>
-    <h1>Card Deck API Client</h1>
-    <button id="createDeck">Create New Deck</button>
-    <input id="deckId" placeholder="Deck ID" />
-    <button id="getDeck">Get Deck</button>
-    <button id="shuffleDeck">Shuffle Deck</button>
-    <button id="drawCard">Draw Card</button>
-
-    <div id="output" style="color: red; font-weight: bold"></div>
-
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Pomodoro Timer</h1>
+        <div class="timer">
+            <span id="minutes">25</span>:<span id="seconds">00</span>
+        </div>
+        <div class="controls">
+            <button id="start">Start</button>
+            <button id="pause">Pause</button>
+            <button id="reset">Reset</button>
+        </div>
+    </div>
     <script src="script.js"></script>
-  </body>
+</body>
 </html>
+
