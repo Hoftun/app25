@@ -9,20 +9,21 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: #f4f4f9;
+  background: #FFEBCC;  /* Soft pastel background */
 }
 
 .container {
   text-align: center;
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 300px;
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  width: 350px;
 }
 
 .timer {
-  font-size: 48px;
+  font-size: 64px;
+  color: #333;
   margin: 20px 0;
 }
 
@@ -30,14 +31,15 @@ body {
   padding: 10px 20px;
   margin: 5px;
   border: none;
-  border-radius: 5px;
+  border-radius: 25px;
   cursor: pointer;
-  background: #007bff;
+  background: #ff6f61;
   color: white;
   font-size: 16px;
   transition: background 0.3s;
 }
 
 .controls button:hover {
-  background: #0056b3;
+  background: #ff4f41;
 }
+
