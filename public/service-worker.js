@@ -1,3 +1,6 @@
+
+console.log("Service worker is installing...");
+
 const cacheName = "pomodoro-cache-v1";
 const assets = [
   "/",
