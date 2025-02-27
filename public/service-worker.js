@@ -9,7 +9,8 @@ const assets = [
   "/style.css",
   "/manifest.json",
   "/icons/icon-192x192.png",
-  "/icons/icon-512x512.png"
+  "/icons/icon-512x512.png",
+  "/images/cat.GIF"
 ];
 
 // Install event: Cache all the assets
