@@ -1,46 +1,33 @@
-# Application development 2 Portefolio 2025
-This is what i have worked on in the subject Application development 2 this semester 2025. 
+# Pomodoro Timer ⏰🐾 
 
-## Installation
+Feeling pawsitively unproductive? Need some purr-suasion to stay on track?  
+Introducing the **Pomodoro Timer**, now with 100% more cat! Because who wouldn’t want a fluffy little motivator lounging on top of their timer? 😸
 
-Instructions for how to install and set up the project.
+This isn’t just any productivity tool; it’s a **meow-nificent** way to boost your focus and break down your tasks into bite-sized intervals. Built as a **Progressive Web App (PWA)**, you can even add it to your home screen—no cat hair included!
 
-```bash
+---
 
-git clone https://github.com/Hoftun/app2025
-cd app2025
-
-## Feature Flag Middleware
-Prosjektet inkluderer et middleware for dynamisk feature flagging.  
-For detaljert bruk og testing, se [FEATURE_FLAGS.md](FEATURE_FLAGS.md).
-
-
-## Pomodoro Timer API
-
-This project now includes a RESTful API for managing Pomodoro Timer sessions.
-
-### Public URL:
+## 🎮 Live Demo
+Check out the live version here and get ready to claw through that to-do list:  
 [https://app25.onrender.com](https://app25.onrender.com)
 
-### Endpoints:
-- **POST** `/api/pomodoro` – Create a new session
-  - Example Request Body:
-    ```json
-    {
-      "type": "work",
-      "duration": 1500
-    }
-    ```
-- **GET** `/api/pomodoro` – Get all sessions
-- **GET** `/api/pomodoro/:id` – Get session by ID
-- **PUT** `/api/pomodoro/:id` – Mark session as completed
-- **DELETE** `/api/pomodoro/:id` – Delete session
+---
 
-### Postman Collection:
-For detailed testing, use the Postman collection in the `postman/` folder.
+## ✨ Features
+- Start, pause, and reset timers for work sessions and breaks—paw-sitively purr-fect for productivity.
+- A cat sits on top of the timer to judge (or support) your progress. It’s motivational... in its own feline way.
+- Configurable durations for both work and break intervals, because even cats need a catnap. 💤
+- **Offline Support:** It works without internet, unlike your cat who always needs WiFi.
+- **Add to Home Screen:** Installable as a PWA on mobile and desktop—no kitty litter required.
+- Dynamic feature flags with custom middleware, because why not?
+- RESTful API for managing Pomodoro sessions. (No, the cat can’t delete your tasks, sorry.)
 
-- `postman/pomodoro-timer-collection.json`
+---
 
-The collection includes requests for:
-- Local testing (`http://localhost:8000`)
-- Live testing (`https://app25.onrender.com`)
+## 🚀 Installation and Setup
+Wanna paws and play with it locally? Here’s how to get it up and running:
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/Hoftun/app2025
+cd app2025
