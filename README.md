@@ -17,7 +17,7 @@ Check out the live version here and get ready to claw through that to-do list:
 - Start, pause, and reset timers for work sessions and breaks—paw-sitively purr-fect for productivity.
 - A cat sits on top of the timer to judge (or support) your progress. It’s motivational... in its own feline way.
 - Configurable durations for both work and break intervals, because even cats need a catnap. 💤
-- **Offline Support:** It works without internet, unlike your cat who always needs WiFi.
+- **Offline Support:** Works even without internet—unlike your cat, who still expects you to Google ‘why does my cat judge me?’"
 - **Add to Home Screen:** Installable as a PWA on mobile and desktop—no kitty litter required.
 - Dynamic feature flags with custom middleware, because why not?
 - RESTful API for managing Pomodoro sessions. (No, the cat can’t delete your tasks, sorry.)
