@@ -1,11 +1,12 @@
-const cacheName = "pomodoro-cache-v2"; 
+const cacheName = "pomodoro-cache-v3"; // Change cache version to force update
+
 const assets = [
   "/",
   "/index.html",
   "/script.js",
   "/style.css",
   "/manifest.json",
-  "/favicon.ico", 
+  "/favicon.ico",
   "/icons/icon-192x192.png",
   "/icons/icon-512x512.png",
   "/icons/screenshot-wide.png",
@@ -13,18 +14,19 @@ const assets = [
   "/images/cat.GIF"
 ];
 
-
+// Cache all the assets
 self.addEventListener("install", event => {
   console.log("Service Worker installing...");
   event.waitUntil(
     caches.open(cacheName).then(cache => {
-      return cache.addAll(assets).catch(err => console.error("Failed to cache:", err));
+      return cache.addAll(assets)
+        .catch(err => console.error("Failed to cache during install:", err));
     })
   );
   self.skipWaiting();
 });
 
-
+// Delete old caches
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keys => {
@@ -36,11 +38,24 @@ self.addEventListener("activate", event => {
   self.clients.claim();
 });
 
-
+// Serve from cache when offline
 self.addEventListener("fetch", event => {
   event.respondWith(
-    caches.match(event.request).then(cachedResponse => {
-      return cachedResponse || fetch(event.request).catch(() => console.error("Fetch failed:", event.request.url));
+    fetch(event.request).catch(() => {
+      return caches.match(event.request).then(cachedResponse => {
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+        
+        if (event.request.mode === "navigate") {
+          return caches.match("/index.html");
+        }
+        return new Response("Offline: Resource not available", {
+          status: 404,
+          statusText: "Not Found"
+        });
+      });
     })
   );
 });
+
