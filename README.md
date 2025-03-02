@@ -39,8 +39,8 @@ Wanna paws and play with it locally? Here’s how to get it up and running:
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/Hoftun/app2025
-cd app2025
+git clone https://github.com/Hoftun/app25
+cd app25
 
 
 
