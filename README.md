@@ -24,6 +24,16 @@ Check out the live version here and get ready to claw through that to-do list:
 
 ---
 
+## 🛠️ Technologies Used
+- **Node.js** – Backend runtime environment
+- **Express.js** – Web server framework
+- **Progressive Web App (PWA)** – Offline support and installable UI
+- **Service Workers** – Caching for offline functionality
+- **Feature Flag Middleware** – Dynamic feature toggling
+- **Postman** – API testing
+- **Favicon.io** – Used to create the site’s favicon
+- **Cat GIFs** – To maximize productivity and cuteness
+
 ## 🚀 Installation and Setup
 Wanna paws and play with it locally? Here’s how to get it up and running:
 
@@ -31,3 +41,6 @@ Wanna paws and play with it locally? Here’s how to get it up and running:
 ```bash
 git clone https://github.com/Hoftun/app2025
 cd app2025
+
+
+
