@@ -1,30 +1,29 @@
-
-console.log("Service worker is installing...");
-
-const cacheName = "pomodoro-cache-v4"; // Change the cache name to force update
-
+const cacheName = "pomodoro-cache-v2"; 
 const assets = [
   "/",
   "/index.html",
-  "/style.css",
   "/script.js",
+  "/style.css",
   "/manifest.json",
-  "/favicon.ico", // Ensure favicon is cached
+  "/favicon.ico", 
   "/icons/icon-192x192.png",
   "/icons/icon-512x512.png",
   "/icons/screenshot-wide.png",
-  "/icons/screenshot-mobile.png"
+  "/icons/screenshot-mobile.png",
+  "/images/cat.GIF"
 ];
 
+
 self.addEventListener("install", event => {
+  console.log("Service Worker installing...");
   event.waitUntil(
     caches.open(cacheName).then(cache => {
-      return cache.addAll(assets)
-        .catch(err => console.error("Failed to cache during install:", err));
+      return cache.addAll(assets).catch(err => console.error("Failed to cache:", err));
     })
   );
   self.skipWaiting();
 });
+
 
 self.addEventListener("activate", event => {
   event.waitUntil(
@@ -37,12 +36,11 @@ self.addEventListener("activate", event => {
   self.clients.claim();
 });
 
-// Fetch event: Serve from cache or fetch fresh if not cached
+
 self.addEventListener("fetch", event => {
   event.respondWith(
     caches.match(event.request).then(cachedResponse => {
-      return cachedResponse || fetch(event.request)
-        .catch(() => console.error("Fetch failed:", event.request.url));
+      return cachedResponse || fetch(event.request).catch(() => console.error("Fetch failed:", event.request.url));
     })
   );
 });
