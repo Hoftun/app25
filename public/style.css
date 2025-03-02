@@ -54,8 +54,8 @@ body {
 
 @media (max-width: 600px) {
   #cat {
-    top: 13%; /* Moves the cat higher on smaller screens */
-    width: 200px; /* Optional: Resize the cat slightly for smaller screens */
+    top: 13%; 
+    width: 200px; 
   }
 }
 
