@@ -5,3 +5,5 @@ node_modules/
 #ignore Log files
 src/logs/log.csv
 
+#Ignore .env file
+.env
