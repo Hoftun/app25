@@ -60,10 +60,10 @@ export const updateSession = async (id, focus_time, break_time) => {
   }
 };
 
-// Delete a session
+
 export const deleteSession = async (id) => {
   try {
-    // Deleting session from the database
+    
     await pool.query("DELETE FROM pomodoro_sessions WHERE id = $1", [id]);
   } catch (err) {
     console.error("Error deleting session:", err);
