@@ -11,7 +11,8 @@ This isn’t just any productivity tool; it’s a **meow-nificent** way to boost
 Check out the live version here and get ready to claw through that to-do list:  
 [https://app25.onrender.com](https://app25.onrender.com)  
 
-This version is **deployed on Render**, and now you can use it on the go—no need for local servers anymore! 🎉
+This version is **deployed on Render**, and now you can use it on the go—no need for local servers anymore! 🎉  
+The API is now fully integrated with a **PostgreSQL database** hosted on **Render** to persist Pomodoro session data.
 
 ---
 
@@ -43,7 +44,7 @@ This app is a **Progressive Web App (PWA)**, meaning you can install it on your 
 - **Offline Support:** Works even without internet—unlike your cat, who still expects you to Google ‘why does my cat judge me?’  
 - **Add to Home Screen:** Installable as a PWA on mobile and desktop—no kitty litter required.  
 - Dynamic feature flags with custom middleware, because why not?  
-- **RESTful API** for managing Pomodoro sessions, now with **PostgreSQL database integration** on **Render**. (No, the cat can’t delete your tasks, sorry.)  
+- **RESTful API** for managing Pomodoro sessions, now with **PostgreSQL database integration** on **Render**. The app stores session data and works seamlessly with your PostgreSQL instance on Render. (No, the cat can’t delete your tasks, sorry.)  
 
 ---
 
@@ -67,21 +68,3 @@ Wanna paws and play with it locally? Here’s how to get it up and running:
 ```bash
 git clone https://github.com/Hoftun/app25
 cd app25
-
-
----
-
-### **Changes Included:**
-- **Live demo** URL to your **Render-deployed app**.
-- **PostgreSQL** integration mentioned in the **Technologies Used** section.
-- Added instructions about **setting up the `.env` file** for PostgreSQL in both **local** and **Render** environments.
-- **Details on how to install and set up** the project locally.
-
----
-
-### **How to Update the README:**
-1. **Copy the above code**.
-2. **Open your `README.md` file** in Visual Studio Code.
-3. **Replace the existing content** with the updated version above.
-
-Let me know if you need any further tweaks or have questions! 😃🚀
