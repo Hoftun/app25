@@ -68,3 +68,21 @@ Wanna paws and play with it locally? Here’s how to get it up and running:
 ```bash
 git clone https://github.com/Hoftun/app25
 cd app25
+
+2. Install dependencies
+bash
+Copy
+npm install
+3. Set up environment variables
+Create a .env file in the root of the project and add your PostgreSQL connection string from Render:
+
+dotenv
+Copy
+DATABASE_URL=postgresql://<username>:<password>@<hostname>.render.com:5432/<database_name>
+You can get this connection string from the Render Dashboard under your PostgreSQL service.
+
+4. Run the app locally
+bash
+Copy
+npm start
+Now you can access the Pomodoro Timer at http://localhost:8000!
