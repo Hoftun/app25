@@ -1,8 +1,15 @@
 const API_BASE = "http://localhost:8000/api/pomodoro"; 
 
-async function createPomodoro(userId = "guest", focusTime = 1500, breakTime = 300) {
+async function createPomodoro(userId = "guest", focusTime) {
     
-    console.log("Sending session data:", { user_id: userId, focus_time: focusTime, break_time: breakTime });
+    const parsedFocusTime = Number.isInteger(focusTime) ? focusTime : parseInt(focusTime, 10);
+
+    if (isNaN(parsedFocusTime) || parsedFocusTime <= 0) {
+        console.error("❌ ERROR - Invalid focus_time value:", parsedFocusTime);
+        return null;
+    }
+
+    console.log("🟢 DEBUG - Sending session data:", { user_id: userId, focus_time: parsedFocusTime });
 
     try {
         const response = await fetch(API_BASE, {
@@ -10,8 +17,7 @@ async function createPomodoro(userId = "guest", focusTime = 1500, breakTime = 30
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 user_id: userId,
-                focus_time: focusTime,
-                break_time: breakTime
+                focus_time: parsedFocusTime
             })
         });
 
@@ -21,10 +27,12 @@ async function createPomodoro(userId = "guest", focusTime = 1500, breakTime = 30
         }
         return data;
     } catch (error) {
-        console.error("API Error:", error);
+        console.error("❌ API ERROR:", error);
         return null;
     }
 }
+
+
 
 async function getPomodoroHistory() {
     try {
@@ -44,4 +52,26 @@ async function getPomodoroHistory() {
     }
 }
 
-export default { createPomodoro, getPomodoroHistory };
+
+async function getTodaySessions(userId) {
+    try {
+        const response = await fetch(`${API_BASE}/today/${userId}`);
+        return await response.json();
+    } catch (error) {
+        console.error("Error fetching today's history:", error);
+        return [];
+    }
+}
+
+
+async function getLifetimeStats(userId) {
+    try {
+        const response = await fetch(`${API_BASE}/stats/${userId}`);
+        return await response.json();
+    } catch (error) {
+        console.error("Error fetching lifetime stats:", error);
+        return { total_sessions: 0, total_minutes: 0 };
+    }
+}
+
+export default { createPomodoro, getPomodoroHistory, getTodaySessions, getLifetimeStats };
