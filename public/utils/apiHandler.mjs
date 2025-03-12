@@ -1,7 +1,7 @@
-const API_BASE = "http://localhost:8000/api/pomodoro"; // Change this when deploying to Render
+const API_BASE = "http://localhost:8000/api/pomodoro"; 
 
 async function createPomodoro(userId = "guest", focusTime = 1500, breakTime = 300) {
-    // ✅ Debugging log to ensure correct data is sent
+    
     console.log("Sending session data:", { user_id: userId, focus_time: focusTime, break_time: breakTime });
 
     try {
