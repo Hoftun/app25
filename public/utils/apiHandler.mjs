@@ -1,13 +1,18 @@
 const API_BASE = "http://localhost:8000/api/pomodoro"; // Change this when deploying to Render
 
-async function createPomodoro(userId, focusTime, breakTime) {
-    console.log("Sending session data:", { user_id: userId, focus_time: focusTime, break_time: breakTime }); // ✅ Debugging log
+async function createPomodoro(userId = "guest", focusTime = 1500, breakTime = 300) {
+    // ✅ Debugging log to ensure correct data is sent
+    console.log("Sending session data:", { user_id: userId, focus_time: focusTime, break_time: breakTime });
 
     try {
         const response = await fetch(API_BASE, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ user_id: userId, focus_time: focusTime, break_time: breakTime })  // ✅ Ensure user_id, focus_time, and break_time are sent
+            body: JSON.stringify({
+                user_id: userId,
+                focus_time: focusTime,
+                break_time: breakTime
+            })
         });
 
         const data = await response.json();
