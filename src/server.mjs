@@ -1,7 +1,5 @@
 import express from "express";
 import path from "path";
-import deckRoutes from "./routes/deckRoutes.mjs";
-import miscRoutes from "./routes/miscRoutes.mjs";
 import errorHandler from "./middlewares/errorHandler.mjs";
 import { featureFlagMiddleware, featureFlagRoutes } from "./middlewares/featureFlags.mjs";
 import log from "./modules/log.mjs";
@@ -19,9 +17,6 @@ const logger = log(LOGG_LEVELS.VERBOSE);
 server.use(express.json());
 server.use(logger);  
 server.use(express.static("public"));
-
-server.use("/api/decks", deckRoutes);
-server.use("/api/misc", miscRoutes);
 
 server.use("/api/pomodoro", pomodoroRouters);
 
