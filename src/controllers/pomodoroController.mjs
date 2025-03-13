@@ -3,24 +3,26 @@ import {
   getSessionById,
   createSession,
   updateSession,
-  deleteSession
+  deleteSession,
+  getSessionsByUserForToday,
+  getUserLifetimeStats
 } from "../models/pomodoroModel.mjs";
 
-// GET all sessions
+
 export const getSessions = async (req, res) => {
   try {
-    const sessions = await getAllSessions();  // Call the model function
+    const sessions = await getAllSessions();
     res.json(sessions);
   } catch (err) {
     res.status(500).json({ error: "Error fetching Pomodoro sessions" });
   }
 };
 
-// GET session by ID
+
 export const getSession = async (req, res) => {
   const { id } = req.params;
   try {
-    const session = await getSessionById(id);  // Call the model function
+    const session = await getSessionById(id);
     if (!session) {
       return res.status(404).json({ error: "Session not found" });
     }
@@ -30,26 +32,52 @@ export const getSession = async (req, res) => {
   }
 };
 
-// POST (create new session)
+
+export const getTodaySessions = async (req, res) => {
+  const { user_id } = req.params;
+  try {
+    const sessions = await getSessionsByUserForToday(user_id);
+    res.json(sessions || []);
+  } catch (err) {
+    res.status(500).json({ error: "Error fetching today's sessions" });
+  }
+};
+
+
+export const getLifetimeStats = async (req, res) => {
+  const { user_id } = req.params;
+  try {
+    const stats = await getUserLifetimeStats(user_id);
+    res.json(stats || { total_sessions: 0, total_minutes: 0 });
+  } catch (err) {
+    res.status(500).json({ error: "Error fetching lifetime stats" });
+  }
+};
+
+
 export const createNewSession = async (req, res) => {
-  const { user_id, focus_time, break_time } = req.body;
+  const { user_id, focus_time } = req.body;
 
   try {
-    const newSession = await createSession(user_id, focus_time, break_time);  // Call the model function
+  
+    const totalMinutes = Math.floor(focus_time / 60);
+
+    // Create the session
+    const newSession = await createSession(user_id, focus_time, totalMinutes);
     res.status(201).json(newSession);
   } catch (err) {
-    console.error('Error creating session:', err);
+    console.error("Error creating session:", err);
     res.status(500).json({ error: "Error creating Pomodoro session" });
   }
 };
 
-// PUT (update existing session)
+
 export const updateExistingSession = async (req, res) => {
   const { id } = req.params;
-  const { focus_time, break_time } = req.body;
+  const { focus_time } = req.body;
 
   try {
-    const session = await updateSession(id, focus_time, break_time);  // Call the model function
+    const session = await updateSession(id, focus_time);
     if (!session) {
       return res.status(404).json({ error: "Session not found" });
     }
@@ -59,14 +87,15 @@ export const updateExistingSession = async (req, res) => {
   }
 };
 
-// DELETE (delete existing session)
+
 export const deleteExistingSession = async (req, res) => {
   const { id } = req.params;
 
   try {
-    await deleteSession(id);  // Call the model function
+    await deleteSession(id);
     res.status(204).send();
   } catch (err) {
     res.status(500).json({ error: "Error deleting Pomodoro session" });
   }
 };
+
