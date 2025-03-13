@@ -3,16 +3,16 @@
   font-weight: bold;
 }
 
-/* === Center the Main Pomodoro Container === */
+
 body {
   font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: #FFEBCC;  /* Soft pastel background */
+  background: #FFEBCC;  
   margin: 0;
-  overflow: hidden;  /* Prevents unwanted scrolling */
+  overflow: hidden;  
 }
 
 .container {
@@ -23,7 +23,7 @@ body {
   box-shadow: 0 8px 16px rgba(0,0,0,0.2);
   width: 350px;
   position: relative;
-  z-index: 10; /* Keeps it above the history menu */
+  z-index: 10; 
 }
 
 .timer {
@@ -50,17 +50,17 @@ body {
 
 #cat {
   width: 250px;
-  position: fixed; /* Change from absolute to fixed */
-  top: 12%;  /* Keep it higher */
+  position: fixed; 
+  top: 12%;  
   left: 50%;
   transform: translateX(-50%);
-  z-index: 30; /* Ensure it's above everything */
+  z-index: 30; 
 }
 
 
 @media (max-width: 600px) {
   #cat {
-    top: 13%;
+    top: 12%;
     width: 200px;
   }
 }
@@ -105,11 +105,11 @@ body {
   cursor: pointer;
 }
 
-/* === History Button (Left Side) === */
+
 .history-btn {
   position: fixed;
   top: 20px;
-  left: 20px;  /* Move button to the left */
+  left: 20px;  
   padding: 10px 15px;
   background: #ff9800;
   color: white;
@@ -117,7 +117,7 @@ body {
   cursor: pointer;
   font-size: 16px;
   border-radius: 5px;
-  z-index: 25; /* Keeps button above everything */
+  z-index: 25; 
 }
 
 .history-btn:hover {
