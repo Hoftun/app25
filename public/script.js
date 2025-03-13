@@ -86,7 +86,7 @@ const resetTimer = () => {
     timerInterval = null;
 
     if (minutes !== 25 || seconds !== 0) {
-        storeSession("work"); // Store the session before resetting
+        storeSession("work"); 
     }
 
     minutes = 25;
@@ -98,13 +98,17 @@ const resetTimer = () => {
 
 
 function openHistory() {
-    document.getElementById("history-menu").classList.add("show");
+    const historyMenu = document.getElementById("history-menu");
+    historyMenu.style.display = "block"; // Make it visible
+    setTimeout(() => historyMenu.classList.add("show"), 10); 
     loadHistory();
 }
 
 
 function closeHistory() {
-    document.getElementById("history-menu").classList.remove("show");
+    const historyMenu = document.getElementById("history-menu");
+    historyMenu.classList.remove("show"); // Slide out
+    setTimeout(() => historyMenu.style.display = "none", 300); 
 }
 
 
