@@ -12,7 +12,7 @@ Check out the live version here and get ready to claw through that to-do list:
 [https://app25.onrender.com](https://app25.onrender.com)  
 
 This version is **deployed on Render**, and now you can use it on the go—no need for local servers anymore! 🎉  
-The API is now fully integrated with a **PostgreSQL database** hosted on **Render** to persist Pomodoro session data.
+The API is fully integrated with a **PostgreSQL database** hosted on **Render**, so your Pomodoro session history is **saved automatically**.
 
 ---
 
@@ -24,6 +24,21 @@ Here’s how this Pomodoro Timer works:
 2. When the timer ends, take a **short break**.  
 3. Repeat the process to stay productive!  
 4. If you need to **pause** or **reset**, just use the buttons below the timer.  
+5. **Session history is automatically stored**—check your past Pomodoros anytime.  
+
+---
+
+## 📊 Viewing Your Pomodoro History  
+Every completed session is **stored in a PostgreSQL database**, allowing you to track your productivity over time.  
+Here’s what you can view:  
+- **Today's History** – A list of all your Pomodoro sessions from today, including their durations.  
+- **Lifetime Stats** – Total Pomodoro sessions completed and total focused time stored in the database.  
+
+You can check your history on the **app’s dashboard** or through the API.  
+
+📌 **API Endpoints:**  
+- **GET `/api/pomodoro/today/:user_id`** → Fetch today’s Pomodoro history.  
+- **GET `/api/pomodoro/stats/:user_id`** → Get total completed sessions and focus time.  
 
 ---
 
@@ -39,19 +54,20 @@ This app is a **Progressive Web App (PWA)**, meaning you can install it on your 
 
 ## ✨ Features  
 - Start, pause, and reset timers for work sessions and breaks—paw-sitively purr-fect for productivity.  
+- **Session history is now stored and accessible anytime.**  
+- **View today’s Pomodoro history and track lifetime stats** 📊.  
 - A cat sits on top of the timer to judge (or support) your progress. It’s motivational... in its own feline way.  
-- Configurable durations for both work and break intervals, because even cats need a catnap. 💤  
 - **Offline Support:** Works even without internet—unlike your cat, who still expects you to Google ‘why does my cat judge me?’  
 - **Add to Home Screen:** Installable as a PWA on mobile and desktop—no kitty litter required.  
 - Dynamic feature flags with custom middleware, because why not?  
-- **RESTful API** for managing Pomodoro sessions, now with **PostgreSQL database integration** on **Render**. The app stores session data and works seamlessly with your PostgreSQL instance on Render. (No, the cat can’t delete your tasks, sorry.)  
+- **RESTful API** for managing Pomodoro sessions, now with **PostgreSQL database integration** on **Render**.  
 
 ---
 
 ## 🛠️ Technologies Used  
 - **Node.js** – Backend runtime environment  
 - **Express.js** – Web server framework  
-- **PostgreSQL** – Database used to persist Pomodoro session history (now hosted on Render).  
+- **PostgreSQL** – Database used to persist Pomodoro session history (hosted on Render).  
 - **Progressive Web App (PWA)** – Offline support and installable UI  
 - **Service Workers** – Caching for offline functionality  
 - **Feature Flag Middleware** – Dynamic feature toggling  
@@ -72,19 +88,27 @@ cd app25
 2. Install dependencies
 bash
 Copy
+Edit
 npm install
 3. Set up environment variables
 Create a .env file in the root of the project and add your PostgreSQL connection string from Render:
 
-dotenv
+ini
 Copy
+Edit
 DATABASE_URL=postgresql://<username>:<password>@<hostname>.render.com:5432/<database_name>
 You can get this connection string from the Render Dashboard under your PostgreSQL service.
 
 4. Run the app locally
 bash
 Copy
+Edit
 npm start
-Now you can access the Pomodoro Timer at http://localhost:8000! ```
+Now you can access the Pomodoro Timer at http://localhost:8000! 🎉
 
-- Ingrid
+🐾 Contributing
+Feel free to submit issues, PRs, or cat memes. Open-source projects thrive on collaboration!
+
+🐱 Happy Pomodoro-ing!
+
+Ingrid
