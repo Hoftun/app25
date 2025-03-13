@@ -1,4 +1,4 @@
-// Register the Service Worker
+
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js')
@@ -7,28 +7,27 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-// Import the API handler to store session data
 import apiHandler from "./utils/apiHandler.mjs";
 
-// Timer variables
+
 let minutes = 25;
 let seconds = 0;
 let timerInterval;
 let isPaused = false;
 
-// Get DOM elements
+
 const minutesDisplay = document.getElementById('minutes');
 const secondsDisplay = document.getElementById('seconds');
 const startPauseButton = document.getElementById('startPause');
 const resetButton = document.getElementById('reset');
 
-// Update the timer display
+
 const updateDisplay = () => {
     minutesDisplay.textContent = String(minutes).padStart(2, '0');
     secondsDisplay.textContent = String(seconds).padStart(2, '0');
 };
 
-// Start the timer
+
 const startTimer = () => {
     isPaused = false;
     timerInterval = setInterval(() => {
@@ -37,7 +36,7 @@ const startTimer = () => {
                 if (minutes === 0) {
                     clearInterval(timerInterval);
                     alert('Tid er ute! Ta en pause!');
-                    storeSession("work"); // Store the completed session
+                    storeSession("work");
                     resetTimer();
                     return;
                 }
@@ -62,10 +61,11 @@ const toggleStartPause = () => {
     }
 };
 
+
 const storeSession = async (sessionType) => {
     const userId = localStorage.getItem("user_id") || "guest";
 
-    // Ensure `focus_time` is calculated in seconds
+ 
     const focusTime = (25 * 60) - (minutes * 60 + seconds);
     const parsedFocusTime = Number.isInteger(focusTime) ? focusTime : parseInt(focusTime, 10);
 
@@ -74,13 +74,13 @@ const storeSession = async (sessionType) => {
     try {
         const response = await apiHandler.createPomodoro(userId, parsedFocusTime);
         console.log("🟢 Session stored:", response);
+        loadHistory(); // Update the history immediately
     } catch (error) {
         console.error("❌ ERROR - Storing session:", error);
     }
 };
 
 
-// Reset the timer (and store session if it was running)
 const resetTimer = () => {
     clearInterval(timerInterval);
     timerInterval = null;
@@ -96,9 +96,47 @@ const resetTimer = () => {
     updateDisplay();
 };
 
-// Event Listeners for the buttons
+
+function openHistory() {
+    document.getElementById("history-menu").classList.add("show");
+    loadHistory();
+}
+
+
+function closeHistory() {
+    document.getElementById("history-menu").classList.remove("show");
+}
+
+
+async function loadHistory() {
+    const userId = localStorage.getItem("user_id") || "guest";
+    const historyContainer = document.getElementById("today-history");
+
+    try {
+        const sessions = await apiHandler.getTodaySessions(userId);
+        historyContainer.innerHTML = "";
+
+        if (sessions.length === 0) {
+            historyContainer.innerHTML = "<p>No sessions yet today.</p>";
+            return;
+        }
+
+        sessions.forEach(session => {
+            const div = document.createElement("div");
+            div.textContent = `🕒 ${new Date(session.start_time).toLocaleTimeString()} - ${session.total_minutes} min`;
+            historyContainer.appendChild(div);
+        });
+    } catch (error) {
+        console.error("❌ ERROR - Loading history:", error);
+        historyContainer.innerHTML = "<p>Error loading history.</p>";
+    }
+}
+
+
 startPauseButton.addEventListener('click', toggleStartPause);
 resetButton.addEventListener('click', resetTimer);
+document.getElementById("history-btn").addEventListener("click", openHistory);
 
-// Initial display update
+
 updateDisplay();
+
