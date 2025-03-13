@@ -99,7 +99,11 @@ const resetTimer = () => {
 
 function openHistory() {
     const historyMenu = document.getElementById("history-menu");
-    historyMenu.style.display = "block"; // Make it visible
+    const historyButton = document.getElementById("history-btn");
+
+    historyMenu.style.display = "block"; 
+    historyButton.style.display = "none"; 
+
     setTimeout(() => historyMenu.classList.add("show"), 10); 
     loadHistory();
 }
@@ -107,8 +111,13 @@ function openHistory() {
 
 function closeHistory() {
     const historyMenu = document.getElementById("history-menu");
-    historyMenu.classList.remove("show"); // Slide out
-    setTimeout(() => historyMenu.style.display = "none", 300); 
+    const historyButton = document.getElementById("history-btn");
+
+    historyMenu.classList.remove("show"); 
+    setTimeout(() => {
+        historyMenu.style.display = "none"; 
+        historyButton.style.display = "block"; 
+    }, 300); 
 }
 
 
