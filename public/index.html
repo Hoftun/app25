@@ -7,24 +7,33 @@
     <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-
 </head>
 <body>
     <div class="container">
-      <img id="cat" src="images/cat.GIF" alt="Cat" />
+        <img id="cat" src="images/cat.GIF" alt="Cat" />
         <h1>Pomodoro Timer</h1>
         <div class="timer">
             <span id="minutes">25</span>:<span id="seconds">00</span>
         </div>
         <div class="controls">
-          <button id="startPause">Start</button>
-          <button id="reset">Reset</button>
-      </div>
-      
+            <button id="startPause">Start</button>
+            <button id="reset">Reset</button>
+        </div>
     </div>
-    <script type="module" src="script.js"></script>
 
+    
+    <div id="history-menu" class="history-menu">
+        <button class="close-btn" onclick="closeHistory()">×</button>
+        <h2>Your History 📊</h2>
+        <div id="today-history">
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    
+    <button id="history-btn" class="history-btn" onclick="openHistory()">📜 View History</button>
+
+    <script type="module" src="script.js"></script>
 </body>
 </html>
-
 
