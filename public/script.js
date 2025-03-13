@@ -97,6 +97,7 @@ const resetTimer = () => {
 };
 
 
+// Open the history menu
 function openHistory() {
     const historyMenu = document.getElementById("history-menu");
     const historyButton = document.getElementById("history-btn");
@@ -108,7 +109,7 @@ function openHistory() {
     loadHistory();
 }
 
-
+// Close the history menu
 function closeHistory() {
     const historyMenu = document.getElementById("history-menu");
     const historyButton = document.getElementById("history-btn");
@@ -117,8 +118,12 @@ function closeHistory() {
     setTimeout(() => {
         historyMenu.style.display = "none"; 
         historyButton.style.display = "block"; 
-    }, 300); 
+    }, 300);
 }
+
+
+document.getElementById("close-history").addEventListener("click", closeHistory);
+
 
 
 async function loadHistory() {
