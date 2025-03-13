@@ -7,6 +7,7 @@ if ('serviceWorker' in navigator) {
     });
 }
 
+
 import apiHandler from "./utils/apiHandler.mjs";
 
 
@@ -16,15 +17,9 @@ let timerInterval;
 let isPaused = false;
 
 
-const minutesDisplay = document.getElementById('minutes');
-const secondsDisplay = document.getElementById('seconds');
-const startPauseButton = document.getElementById('startPause');
-const resetButton = document.getElementById('reset');
-
-
 const updateDisplay = () => {
-    minutesDisplay.textContent = String(minutes).padStart(2, '0');
-    secondsDisplay.textContent = String(seconds).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
 };
 
 
@@ -54,10 +49,10 @@ const startTimer = () => {
 const toggleStartPause = () => {
     if (timerInterval) {
         isPaused = !isPaused;
-        startPauseButton.textContent = isPaused ? 'Start' : 'Pause';
+        document.getElementById('startPause').textContent = isPaused ? 'Start' : 'Pause';
     } else {
         startTimer();
-        startPauseButton.textContent = 'Pause';
+        document.getElementById('startPause').textContent = 'Pause';
     }
 };
 
@@ -65,7 +60,7 @@ const toggleStartPause = () => {
 const storeSession = async (sessionType) => {
     const userId = localStorage.getItem("user_id") || "guest";
 
- 
+    // Calculate focus time in seconds
     const focusTime = (25 * 60) - (minutes * 60 + seconds);
     const parsedFocusTime = Number.isInteger(focusTime) ? focusTime : parseInt(focusTime, 10);
 
@@ -86,49 +81,50 @@ const resetTimer = () => {
     timerInterval = null;
 
     if (minutes !== 25 || seconds !== 0) {
-        storeSession("work"); 
+        storeSession("work");
     }
 
     minutes = 25;
     seconds = 0;
     isPaused = false;
-    startPauseButton.textContent = 'Start';
+    document.getElementById('startPause').textContent = 'Start';
     updateDisplay();
 };
 
 
-// Open the history menu
 function openHistory() {
     const historyMenu = document.getElementById("history-menu");
     const historyButton = document.getElementById("history-btn");
 
-    historyMenu.style.display = "block"; 
-    historyButton.style.display = "none"; 
+    if (historyMenu && historyButton) {
+        historyMenu.style.display = "block"; 
+        historyButton.style.display = "none"; 
 
-    setTimeout(() => historyMenu.classList.add("show"), 10); 
-    loadHistory();
+        setTimeout(() => historyMenu.classList.add("show"), 10);
+        loadHistory();
+    }
 }
 
-// Close the history menu
+
 function closeHistory() {
     const historyMenu = document.getElementById("history-menu");
     const historyButton = document.getElementById("history-btn");
 
-    historyMenu.classList.remove("show"); 
-    setTimeout(() => {
-        historyMenu.style.display = "none"; 
-        historyButton.style.display = "block"; 
-    }, 300);
+    if (historyMenu && historyButton) {
+        historyMenu.classList.remove("show"); 
+        setTimeout(() => {
+            historyMenu.style.display = "none"; 
+            historyButton.style.display = "block"; 
+        }, 300);
+    }
 }
 
-
-document.getElementById("close-history").addEventListener("click", closeHistory);
-
-
-
+// Load and display today's Pomodoro history
 async function loadHistory() {
     const userId = localStorage.getItem("user_id") || "guest";
     const historyContainer = document.getElementById("today-history");
+
+    if (!historyContainer) return;
 
     try {
         const sessions = await apiHandler.getTodaySessions(userId);
@@ -151,10 +147,12 @@ async function loadHistory() {
 }
 
 
-startPauseButton.addEventListener('click', toggleStartPause);
-resetButton.addEventListener('click', resetTimer);
-document.getElementById("history-btn").addEventListener("click", openHistory);
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("startPause")?.addEventListener('click', toggleStartPause);
+    document.getElementById("reset")?.addEventListener('click', resetTimer);
+    document.getElementById("history-btn")?.addEventListener("click", openHistory);
+    document.getElementById("close-history")?.addEventListener("click", closeHistory);
+});
 
 
 updateDisplay();
-
