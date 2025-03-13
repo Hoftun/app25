@@ -60,3 +60,56 @@ body {
 }
 
 
+.history-menu {
+  position: fixed;
+  right: -300px;
+  top: 0;
+  width: 300px;
+  height: 100%;
+  background: white;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+  transition: right 0.3s ease-in-out;
+  padding: 20px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.history-menu.show {
+  right: 0;
+}
+
+.history-menu h2 {
+  text-align: center;
+}
+
+.history-menu p {
+  margin: 10px 0;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+
+.history-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 15px;
+  background: #ff9800;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.history-btn:hover {
+  background: #e68900;
+}
