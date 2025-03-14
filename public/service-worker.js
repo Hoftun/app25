@@ -1,9 +1,10 @@
 const cacheName = "pomodoro-cache-v3";
 
+
 const assets = [
   "/",
   "/index.html",
-  "/script.js",
+  "/script.js",  
   "/style.css",
   "/manifest.json",
   "/favicon.ico",
@@ -13,6 +14,7 @@ const assets = [
   "/icons/screenshot-mobile.png",
   "/images/cat.GIF"
 ];
+
 
 self.addEventListener("install", event => {
   console.log("Service Worker installing...");
@@ -25,6 +27,7 @@ self.addEventListener("install", event => {
   self.skipWaiting();
 });
 
+
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keys => {
@@ -36,23 +39,36 @@ self.addEventListener("activate", event => {
   self.clients.claim();
 });
 
+
 self.addEventListener("fetch", event => {
   event.respondWith(
-    fetch(event.request).catch(() => {
-      return caches.match(event.request).then(cachedResponse => {
-        if (cachedResponse) {
-          return cachedResponse;
+    fetch(event.request)
+      .then(response => {
+        // Cache static files (e.g., index.html, script.js)
+        if (event.request.url.indexOf("index.html") !== -1 || event.request.url.indexOf("script.js") !== -1) {
+          caches.open(cacheName).then(cache => {
+            cache.put(event.request, response);
+          });
         }
-        
-        if (event.request.mode === "navigate") {
-          return caches.match("/index.html");
-        }
-        return new Response("Offline: Resource not available", {
-          status: 404,
-          statusText: "Not Found"
+        return response;
+      })
+      .catch(() => {
+        return caches.match(event.request).then(cachedResponse => {
+          if (cachedResponse) {
+            return cachedResponse;
+          }
+
+          if (event.request.mode === "navigate") {
+            // Serve cached index.html when offline
+            return caches.match("/index.html");
+          }
+
+          // For any other assets not found in cache, show an offline message
+          return new Response("Offline: Resource not available", {
+            status: 404,
+            statusText: "Not Found"
+          });
         });
-      });
-    })
+      })
   );
 });
-
