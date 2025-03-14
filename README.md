@@ -1,4 +1,7 @@
-# PLEASE USE THE FILES FROM THE "UPDATED the README to include the middleware details" I MANAGED TO DO something weird after last minute
+# Important Note:
+**Please use the files from the commit titled "UPDATED the README to include the middleware details."**
+I encountered some issues after my last-minute changes, which caused the code to be altered unintentionally. However, the issues have now been fixed in the latest commits. Since you're only allowed to look at commits made before the assignment deadline, please refer to the specific commit mentioned above, as that version is the most correct one.
+-Ingrid
 
 # Pomodoro Timer ⏰🐾 
 
