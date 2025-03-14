@@ -11,7 +11,6 @@ export const getAllSessions = async () => {
   }
 };
 
-
 export const getSessionById = async (id) => {
   try {
     const result = await pool.query("SELECT * FROM pomodoro_sessions WHERE id = $1", [id]);
@@ -21,7 +20,6 @@ export const getSessionById = async (id) => {
     throw new Error("Error fetching Pomodoro session");
   }
 };
-
 
 export const getSessionsByUserForToday = async (user_id) => {
   try {
@@ -38,7 +36,6 @@ export const getSessionsByUserForToday = async (user_id) => {
   }
 };
 
-
 export const getUserLifetimeStats = async (user_id) => {
   try {
     const result = await pool.query(
@@ -52,7 +49,6 @@ export const getUserLifetimeStats = async (user_id) => {
     throw new Error("Error fetching lifetime Pomodoro stats");
   }
 };
-
 
 export const createSession = async (user_id, focus_time) => {
   try {
@@ -81,8 +77,6 @@ export const createSession = async (user_id, focus_time) => {
   }
 };
 
-
-
 export const updateSession = async (id, focus_time) => {
   try {
     const total_minutes = Math.floor(focus_time / 60);
@@ -100,7 +94,6 @@ export const updateSession = async (id, focus_time) => {
     throw new Error("Error updating Pomodoro session");
   }
 };
-
 
 export const deleteSession = async (id) => {
   try {

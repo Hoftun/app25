@@ -78,14 +78,11 @@ const logFilePath = "src/logs/log.csv";
 
 const ensureLogFileExists = async () => {
   try {
-    // Check if the directory exists
     await fs.mkdir("src/logs", { recursive: true });
-
-    // Check if the file exists
+   
     try {
       await fs.access(logFilePath);
     } catch (err) {
-      // If the file doesn't exist, create it
       await fs.writeFile(logFilePath, "");  
     }
   } catch (err) {
@@ -94,7 +91,7 @@ const ensureLogFileExists = async () => {
 }
 
 const savelog = async (text) => {
-  await ensureLogFileExists();  // Check and create if necessary
+  await ensureLogFileExists();  
   text += "\n";
   await fs.appendFile(logFilePath, text);
 }

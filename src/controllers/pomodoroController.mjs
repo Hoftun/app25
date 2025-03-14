@@ -8,7 +8,6 @@ import {
   getUserLifetimeStats
 } from "../models/pomodoroModel.mjs";
 
-
 export const getSessions = async (req, res) => {
   try {
     const sessions = await getAllSessions();
@@ -17,7 +16,6 @@ export const getSessions = async (req, res) => {
     res.status(500).json({ error: "Error fetching Pomodoro sessions" });
   }
 };
-
 
 export const getSession = async (req, res) => {
   const { id } = req.params;
@@ -32,7 +30,6 @@ export const getSession = async (req, res) => {
   }
 };
 
-
 export const getTodaySessions = async (req, res) => {
   const { user_id } = req.params;
   try {
@@ -42,7 +39,6 @@ export const getTodaySessions = async (req, res) => {
     res.status(500).json({ error: "Error fetching today's sessions" });
   }
 };
-
 
 export const getLifetimeStats = async (req, res) => {
   const { user_id } = req.params;
@@ -54,7 +50,6 @@ export const getLifetimeStats = async (req, res) => {
   }
 };
 
-
 export const createNewSession = async (req, res) => {
   const { user_id, focus_time } = req.body;
 
@@ -62,7 +57,6 @@ export const createNewSession = async (req, res) => {
   
     const totalMinutes = Math.floor(focus_time / 60);
 
-    // Create the session
     const newSession = await createSession(user_id, focus_time, totalMinutes);
     res.status(201).json(newSession);
   } catch (err) {
@@ -70,7 +64,6 @@ export const createNewSession = async (req, res) => {
     res.status(500).json({ error: "Error creating Pomodoro session" });
   }
 };
-
 
 export const updateExistingSession = async (req, res) => {
   const { id } = req.params;
@@ -86,7 +79,6 @@ export const updateExistingSession = async (req, res) => {
     res.status(500).json({ error: "Error updating Pomodoro session" });
   }
 };
-
 
 export const deleteExistingSession = async (req, res) => {
   const { id } = req.params;

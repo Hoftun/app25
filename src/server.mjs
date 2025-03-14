@@ -70,7 +70,6 @@ server.use((req, res, next) => {
   next();
 });
 
-
 featureFlagRoutes(server);
 
 server.use("/api/pomodoro", pomodoroRouters);

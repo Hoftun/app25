@@ -15,7 +15,6 @@ const assets = [
   "/images/cat.GIF"
 ];
 
-
 self.addEventListener("install", event => {
   console.log("Service Worker installing...");
   event.waitUntil(
@@ -27,7 +26,6 @@ self.addEventListener("install", event => {
   self.skipWaiting();
 });
 
-
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keys => {
@@ -38,7 +36,6 @@ self.addEventListener("activate", event => {
   );
   self.clients.claim();
 });
-
 
 self.addEventListener("fetch", event => {
   event.respondWith(

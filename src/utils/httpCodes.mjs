@@ -1,4 +1,3 @@
-//HTTP status codes
 
 import { setUncaughtExceptionCaptureCallback } from "node:process";
 
