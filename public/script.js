@@ -1,3 +1,4 @@
+
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js')
@@ -65,7 +66,7 @@ const storeSession = async (sessionType) => {
     try {
         const response = await apiHandler.createPomodoro(userId, parsedFocusTime);
         console.log("🟢 Session stored:", response);
-        loadHistory();
+        loadHistory(); 
     } catch (error) {
         console.error("❌ ERROR - Storing session:", error);
     }
@@ -87,8 +88,13 @@ const resetTimer = () => {
 };
 
 async function openHistory() {
+    if (!navigator.onLine) {
+       
+        document.getElementById("offline-modal").style.display = "block";
+        return;
+    }
+
     try {
-        
         const response = await fetch(API_FEATURES);
         const flags = await response.json();
 
@@ -167,6 +173,11 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("reset")?.addEventListener('click', resetTimer);
     document.getElementById("history-btn")?.addEventListener("click", openHistory);
     document.getElementById("close-history")?.addEventListener("click", closeHistory);
+
+    
+    document.getElementById("close-modal").addEventListener("click", function() {
+        document.getElementById("offline-modal").style.display = "none";
+    });
 });
 
 updateDisplay();
