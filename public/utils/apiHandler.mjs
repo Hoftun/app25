@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:8000/api/pomodoro"; 
+const API_BASE = "https://app25.onrender.com/"; 
 
 async function createPomodoro(userId = "guest", focusTime) {
     
@@ -32,8 +32,6 @@ async function createPomodoro(userId = "guest", focusTime) {
     }
 }
 
-
-
 async function getPomodoroHistory() {
     try {
         const response = await fetch(API_BASE, {
@@ -52,7 +50,6 @@ async function getPomodoroHistory() {
     }
 }
 
-
 async function getTodaySessions(userId) {
     try {
         const response = await fetch(`${API_BASE}/today/${userId}`);
@@ -62,7 +59,6 @@ async function getTodaySessions(userId) {
         return [];
     }
 }
-
 
 async function getLifetimeStats(userId) {
     try {
