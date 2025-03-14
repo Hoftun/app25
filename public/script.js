@@ -1,4 +1,3 @@
-
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js')
@@ -8,6 +7,10 @@ if ('serviceWorker' in navigator) {
 }
 
 import apiHandler from "./utils/apiHandler.mjs";
+
+const API_FEATURES = window.location.hostname === "localhost"
+    ? "http://localhost:8000/api/features"
+    : "https://app25.onrender.com/api/features";
 
 let minutes = 25;
 let seconds = 0;
@@ -54,7 +57,6 @@ const toggleStartPause = () => {
 const storeSession = async (sessionType) => {
     const userId = localStorage.getItem("user_id") || "guest";
 
-    
     const focusTime = (25 * 60) - (minutes * 60 + seconds);
     const parsedFocusTime = Number.isInteger(focusTime) ? focusTime : parseInt(focusTime, 10);
 
@@ -63,7 +65,7 @@ const storeSession = async (sessionType) => {
     try {
         const response = await apiHandler.createPomodoro(userId, parsedFocusTime);
         console.log("🟢 Session stored:", response);
-        loadHistory(); // Update the history immediately
+        loadHistory();
     } catch (error) {
         console.error("❌ ERROR - Storing session:", error);
     }
@@ -84,16 +86,31 @@ const resetTimer = () => {
     updateDisplay();
 };
 
-function openHistory() {
-    const historyMenu = document.getElementById("history-menu");
-    const historyButton = document.getElementById("history-btn");
+async function openHistory() {
+    try {
+        
+        const response = await fetch(API_FEATURES);
+        const flags = await response.json();
 
-    if (historyMenu && historyButton) {
-        historyMenu.style.display = "block"; 
-        historyButton.style.display = "none"; 
+        console.log("🟢 DEBUG - Feature Flags Received:", flags);
 
-        setTimeout(() => historyMenu.classList.add("show"), 10);
-        loadHistory();
+        if (!flags.showHistorySidebar) {
+            alert("History sidebar is currently disabled!");
+            return;
+        }
+
+        const historyMenu = document.getElementById("history-menu");
+        const historyButton = document.getElementById("history-btn");
+
+        if (historyMenu && historyButton) {
+            historyMenu.style.display = "block";
+            historyButton.style.display = "none";
+
+            setTimeout(() => historyMenu.classList.add("show"), 10);
+            loadHistory();
+        }
+    } catch (error) {
+        console.error("❌ ERROR - Fetching feature flags:", error);
     }
 }
 
@@ -102,10 +119,10 @@ function closeHistory() {
     const historyButton = document.getElementById("history-btn");
 
     if (historyMenu && historyButton) {
-        historyMenu.classList.remove("show"); 
+        historyMenu.classList.remove("show");
         setTimeout(() => {
-            historyMenu.style.display = "none"; 
-            historyButton.style.display = "block"; 
+            historyMenu.style.display = "none";
+            historyButton.style.display = "block";
         }, 300);
     }
 }
@@ -127,19 +144,18 @@ async function loadHistory() {
 
         sessions.forEach(session => {
             let storedDate = new Date(session.start_time);
-        
+
             const formattedTime = storedDate.toLocaleTimeString("no-NO", {
                 hour: "2-digit",
                 minute: "2-digit",
                 second: "2-digit"
             });
-        
+
             const div = document.createElement("div");
             div.textContent = `🕒 ${formattedTime} - ${session.total_minutes} min`;
             historyContainer.appendChild(div);
         });
-        
-        
+
     } catch (error) {
         console.error("❌ ERROR - Loading history:", error);
         historyContainer.innerHTML = "<p>Error loading history.</p>";
@@ -152,6 +168,5 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("history-btn")?.addEventListener("click", openHistory);
     document.getElementById("close-history")?.addEventListener("click", closeHistory);
 });
-
 
 updateDisplay();

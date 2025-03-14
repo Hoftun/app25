@@ -1,4 +1,6 @@
-const API_BASE = "https://app25.onrender.com/api/pomodoro";
+const API_BASE = window.location.hostname === "localhost"
+    ? "http://localhost:8000/api/pomodoro"  // ✅ Local development
+    : "https://app25.onrender.com/api/pomodoro"; // ✅ Production (Render)
 
 async function createPomodoro(userId = "guest", focusTime) {
     
