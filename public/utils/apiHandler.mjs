@@ -1,4 +1,4 @@
-const API_BASE = "https://app25.onrender.com/"; 
+const API_BASE = "https://app25.onrender.com/api/pomodoro";
 
 async function createPomodoro(userId = "guest", focusTime) {
     
