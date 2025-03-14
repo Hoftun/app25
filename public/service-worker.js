@@ -44,7 +44,7 @@ self.addEventListener("fetch", event => {
   event.respondWith(
     fetch(event.request)
       .then(response => {
-        // Cache static files (e.g., index.html, script.js)
+        
         if (event.request.url.indexOf("index.html") !== -1 || event.request.url.indexOf("script.js") !== -1) {
           caches.open(cacheName).then(cache => {
             cache.put(event.request, response);
@@ -59,11 +59,10 @@ self.addEventListener("fetch", event => {
           }
 
           if (event.request.mode === "navigate") {
-            // Serve cached index.html when offline
+           
             return caches.match("/index.html");
           }
 
-          // For any other assets not found in cache, show an offline message
           return new Response("Offline: Resource not available", {
             status: 404,
             statusText: "Not Found"
