@@ -86,25 +86,44 @@ git clone https://github.com/Hoftun/app25
 cd app25
 
 2. Install dependencies
-bash
-Copy
-Edit
+
 npm install
+
 3. Set up environment variables
 Create a .env file in the root of the project and add your PostgreSQL connection string from Render:
 
-ini
-Copy
-Edit
 DATABASE_URL=postgresql://<username>:<password>@<hostname>.render.com:5432/<database_name>
+API_BASE_URL="https://app25.onrender.com/api"
+
 You can get this connection string from the Render Dashboard under your PostgreSQL service.
 
 4. Run the app locally
-bash
-Copy
-Edit
+
 npm start
+
 Now you can access the Pomodoro Timer at http://localhost:8000! 🎉
+
+✨ Feature Flags: Enabling/Disabling the History Sidebar
+
+The History Sidebar can be toggled on or off dynamically using feature flags via the API. Here’s how to change its state:
+
+Disabling the History Sidebar:
+Run this curl command to turn OFF the sidebar:
+
+curl -X POST http://localhost:8000/api/features -H "Content-Type: application/json" -d '{"feature": "showHistorySidebar", "enabled": false}'
+Enabling the History Sidebar:
+Run this curl command to turn ON the sidebar:
+
+curl -X POST http://localhost:8000/api/features -H "Content-Type: application/json" -d '{"feature": "showHistorySidebar", "enabled": true}'
+
+You can also enable/disable it via Postman:
+1. POST request to http://localhost:8000/api/features
+2. Body (raw, JSON format):
+
+{
+    "feature": "showHistorySidebar",
+    "enabled": true
+}
 
 🐾 Contributing
 Feel free to submit issues, PRs, or cat memes. Open-source projects thrive on collaboration!
