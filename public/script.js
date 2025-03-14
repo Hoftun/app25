@@ -7,21 +7,17 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-
 import apiHandler from "./utils/apiHandler.mjs";
-
 
 let minutes = 25;
 let seconds = 0;
 let timerInterval;
 let isPaused = false;
 
-
 const updateDisplay = () => {
     document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
     document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
 };
-
 
 const startTimer = () => {
     isPaused = false;
@@ -45,7 +41,6 @@ const startTimer = () => {
     }, 1000);
 };
 
-
 const toggleStartPause = () => {
     if (timerInterval) {
         isPaused = !isPaused;
@@ -56,11 +51,10 @@ const toggleStartPause = () => {
     }
 };
 
-
 const storeSession = async (sessionType) => {
     const userId = localStorage.getItem("user_id") || "guest";
 
-    // Calculate focus time in seconds
+    
     const focusTime = (25 * 60) - (minutes * 60 + seconds);
     const parsedFocusTime = Number.isInteger(focusTime) ? focusTime : parseInt(focusTime, 10);
 
@@ -74,7 +68,6 @@ const storeSession = async (sessionType) => {
         console.error("❌ ERROR - Storing session:", error);
     }
 };
-
 
 const resetTimer = () => {
     clearInterval(timerInterval);
@@ -91,7 +84,6 @@ const resetTimer = () => {
     updateDisplay();
 };
 
-
 function openHistory() {
     const historyMenu = document.getElementById("history-menu");
     const historyButton = document.getElementById("history-btn");
@@ -104,7 +96,6 @@ function openHistory() {
         loadHistory();
     }
 }
-
 
 function closeHistory() {
     const historyMenu = document.getElementById("history-menu");
@@ -119,7 +110,6 @@ function closeHistory() {
     }
 }
 
-// Load and display today's Pomodoro history
 async function loadHistory() {
     const userId = localStorage.getItem("user_id") || "guest";
     const historyContainer = document.getElementById("today-history");
@@ -136,16 +126,28 @@ async function loadHistory() {
         }
 
         sessions.forEach(session => {
+            let utcDate = new Date(session.start_time);
+            
+            
+            let norwegianTime = new Date(utcDate.getTime() + (60 * 60 * 1000)); // Add 1 hour
+        
+           
+            const formattedTime = norwegianTime.toLocaleTimeString("no-NO", {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit"
+            });
+        
             const div = document.createElement("div");
-            div.textContent = `🕒 ${new Date(session.start_time).toLocaleTimeString()} - ${session.total_minutes} min`;
+            div.textContent = `🕒 ${formattedTime} - ${session.total_minutes} min`;
             historyContainer.appendChild(div);
         });
+        
     } catch (error) {
         console.error("❌ ERROR - Loading history:", error);
         historyContainer.innerHTML = "<p>Error loading history.</p>";
     }
 }
-
 
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("startPause")?.addEventListener('click', toggleStartPause);
