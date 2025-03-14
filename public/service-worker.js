@@ -1,4 +1,4 @@
-const cacheName = "pomodoro-cache-v3"; // Change cache version to force update
+const cacheName = "pomodoro-cache-v3";
 
 const assets = [
   "/",
@@ -14,7 +14,6 @@ const assets = [
   "/images/cat.GIF"
 ];
 
-// Cache all the assets
 self.addEventListener("install", event => {
   console.log("Service Worker installing...");
   event.waitUntil(
@@ -26,7 +25,6 @@ self.addEventListener("install", event => {
   self.skipWaiting();
 });
 
-// Delete old caches
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keys => {
@@ -38,7 +36,6 @@ self.addEventListener("activate", event => {
   self.clients.claim();
 });
 
-// Serve from cache when offline
 self.addEventListener("fetch", event => {
   event.respondWith(
     fetch(event.request).catch(() => {
