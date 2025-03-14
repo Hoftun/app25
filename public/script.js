@@ -126,13 +126,9 @@ async function loadHistory() {
         }
 
         sessions.forEach(session => {
-            let utcDate = new Date(session.start_time);
-            
-            
-            let norwegianTime = new Date(utcDate.getTime() + (60 * 60 * 1000)); // Add 1 hour
+            let storedDate = new Date(session.start_time);
         
-           
-            const formattedTime = norwegianTime.toLocaleTimeString("no-NO", {
+            const formattedTime = storedDate.toLocaleTimeString("no-NO", {
                 hour: "2-digit",
                 minute: "2-digit",
                 second: "2-digit"
@@ -142,6 +138,7 @@ async function loadHistory() {
             div.textContent = `🕒 ${formattedTime} - ${session.total_minutes} min`;
             historyContainer.appendChild(div);
         });
+        
         
     } catch (error) {
         console.error("❌ ERROR - Loading history:", error);
